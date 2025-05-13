@@ -105,4 +105,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: TextTemplatingFileGeneratorCore.vsix
-        path: TextTemplatingFileGeneratorCore\bin\$env:Configuration\TextTemplatingFileGeneratorCore.vsix
+        path: TextTemplatingFileGeneratorCore\bin\${{ matrix.configuration }}\TextTemplatingFileGeneratorCore.vsix
