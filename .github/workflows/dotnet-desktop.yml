@@ -104,5 +104,5 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: TextTemplatingFileGeneratorCore.vsix
+        name: TextTemplatingFileGeneratorCore-${{ matrix.configuration }}.vsix
         path: TextTemplatingFileGeneratorCore\bin\${{ matrix.configuration }}\TextTemplatingFileGeneratorCore.vsix
