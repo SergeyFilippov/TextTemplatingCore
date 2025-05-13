@@ -1,13 +1,13 @@
-﻿# T4 Text Templating with .NET 8
-The software in this repository allows you to run a T4 template with the .NET 8 runtime. This means you can load .NET Core and .NET 5/6/7/8 assemblies and use .NET 8 libraries. My team uses it to generate C# code for types in a .NET assembly (using Reflection). We also use it to process a JSON file using .NET's System.Text.Json library.
+﻿# T4 Text Templating with .NET 9
+The software in this repository allows you to run a T4 template with the .NET 8 runtime. This means you can load .NET Core and .NET 5/6/7/8/9 assemblies and use .NET 9 libraries. My team uses it to generate C# code for types in a .NET assembly (using Reflection). We also use it to process a JSON file using .NET's System.Text.Json library.
 
 __Author:__ RdJNL
 
 ## Latest release
-Version 1.3.0 can be downloaded [here](https://github.com/RdJNL/TextTemplatingCore/releases/download/v1.3.0/TextTemplatingCore_v1.3.0.zip).
+Version 1.4.0 can be downloaded [here](https://github.com/RdJNL/TextTemplatingCore/releases/download/v1.3.0/TextTemplatingCore_v1.3.0.zip).
 
 ## Requirements
-- .NET 8
+- .NET 9
 - .NET Framework 4.8
 - Visual Studio 2019/2022 (for the VS extension)
 
