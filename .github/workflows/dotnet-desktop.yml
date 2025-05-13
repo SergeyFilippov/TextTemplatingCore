@@ -1,0 +1,76 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# For more information on GitHub Actions, refer to https://github.com/features/actions
+# For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications,
+# refer to https://github.com/microsoft/github-actions-for-desktop-apps
+
+name: .NET Core Desktop
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: windows-latest  # For a list of available runner types, refer to
+                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+
+    env:
+      Solution_Name: TextTemplatingCore.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # Install the .NET Core 8 workload (for current dotnet version)
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    # Install the .NET Core 9 workload (for next dotnet version)
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    
+
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v2
+
+    # Execute all unit tests in the solution
+    #- name: Execute unit tests
+    #  run: dotnet test
+
+    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    - name: Restore the application
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # Create the visual studio extension by running the MSBuild command
+    - name: Create the extension
+      run: msbuild $env:Solution_Name /p:Configuration=$env:Configuration /p:DeployExtension=false /p:ZipPackageCompressionLevel=normal
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # Upload the VSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: TextTemplatingFileGeneratorCore-${{ matrix.configuration }}.vsix
+        path: TextTemplatingFileGeneratorCore\bin\${{ matrix.configuration }}\TextTemplatingFileGeneratorCore.vsix
