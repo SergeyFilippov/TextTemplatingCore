@@ -1,5 +1,5 @@
 ﻿//---------------------------------------------//
-// Copyright 2022 RdJNL                        //
+// Copyright 2023 RdJNL                        //
 // https://github.com/RdJNL/TextTemplatingCore //
 //---------------------------------------------//
 using System;
@@ -97,6 +97,8 @@ namespace RdJNL.TextTemplatingCore.TextTemplatingFileGeneratorCore
 
         private IEnumerable<string> ProcessReferences(string[] references, string inputFileName)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
             IDictionary<string, string> variables = GetReferenceVariables(inputFileName);
 
             IEnumerable<string> refs = references.Take(references.Length - 4);
